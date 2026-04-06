@@ -54,6 +54,10 @@ float UCombatComponent::GetTypeEffectiveness(ECharType Attacker, ECharType Defen
 
 void UCombatComponent::ApplyDamage(float DamageAmount, AActor* DamageInstigator)
 {
+    if (GEngine)
+        GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Yellow,
+            FString::Printf(TEXT("ApplyDamage called: %.1f damage"), DamageAmount));
+
     if (bIsDead) return;
 
     // Apply type effectiveness if instigator has a CombatComponent
@@ -87,7 +91,14 @@ void UCombatComponent::ApplyDamage(float DamageAmount, AActor* DamageInstigator)
                 }
             }
         }
+        if (CurrentHealth <= 0.f)
+        {
+            bIsDead = true;
 
+            if (GEngine)
+                GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red,
+                    FString::Printf(TEXT("UNIT DEAD - Broadcasting OnUnitDeath")));
+        }
         // Broadcast death event (bind in BP to play death anim, disable collision, etc.)
         OnUnitDeath.Broadcast();
     }
