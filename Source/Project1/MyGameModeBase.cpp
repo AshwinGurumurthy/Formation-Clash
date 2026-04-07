@@ -4,7 +4,7 @@
 #include "Components/TextBlock.h"
 #include "Combat/CombatComponent.h"
 #include "GameFramework/Character.h"
-#include "Containers/Queue.h"
+#include "GameFramework/GameSession.h"
 
 
 void AMyGameModeBase::BeginPlay()
@@ -100,41 +100,41 @@ void AMyGameModeBase::IsBattleOver()
             {
                 // Set the result text
                 UTextBlock* Text = Cast<UTextBlock>(Widget->GetWidgetFromName(TEXT("ResultText")));
-                if (Text)
-                {
+
                     if (!bTeam0Alive)
                     {
-                        // Lost — replay same level after 2 seconds
+                        // Lost — replay same level 
                         Text->SetText(FText::FromString("GAME OVER"));
-                        FTimerHandle Handle;
-                        GetWorld()->GetTimerManager().SetTimer(Handle, [this]()
-                        {
-                            UGameplayStatics::OpenLevel(GetWorld(), Levels[LevelTrack].NameOfLevel);
-                        }, 2.0f, false);
+                        NextLevel();
                     }
                     else
                     {
-                        // Won — next level after 2 seconds
+                        // Won — next level 
                         Text->SetText(FText::FromString("LEVEL CLEARED"));
-                        FTimerHandle Handle;
-                        GetWorld()->GetTimerManager().SetTimer(Handle, [this]()
+                        LevelTrack++;
+                        if (!NextLevel())
                         {
-                            LevelTrack++;
-                            UGameplayStatics::OpenLevel(GetWorld(), Levels[LevelTrack].NameOfLevel);
-                        }, 2.0f, false);
+                            Text->SetText(FText::FromString("CONGRATULATIONS YOU WIN!"));
+                            Widget->AddToViewport();
+                            FTimerHandle Handle;
+                            GetWorld()->GetTimerManager().SetTimer(Handle, [this]()
+                            {
+                                AMyGameModeBase::EndPlay(EEndPlayReason::Quit);
+                            }, 2.0f, false);
+                            
+                        }
+                        
                     }
-                }
+                
 
                 Widget->AddToViewport();
             }
         }
-
-        // Pause the game
-        //UGameplayStatics::SetGamePaused(GetWorld(), true);
+        
     }
 }
 
-void AMyGameModeBase::OnAllUnitsDead()
+/*void AMyGameModeBase::OnAllUnitsDead()
 {
     //Get All Actors and clear them once all enemies are dead ahead of new level
     TArray<AActor*> AllUnits;
@@ -148,9 +148,9 @@ void AMyGameModeBase::OnAllUnitsDead()
         }
     }
     
-}
+} */
 
-void AMyGameModeBase::SpawnEnemies(FLevelData Level)
+/*void AMyGameModeBase::SpawnEnemies(FLevelData Level)
 {
     // For all spawn info in current level
     for (FEnemySpawnInfo& SpawnInfo : Level.EnemyLocs)
@@ -163,21 +163,26 @@ void AMyGameModeBase::SpawnEnemies(FLevelData Level)
             &AMyGameModeBase::OnUnitDead);
     }
     
-}
+} */
 
-void AMyGameModeBase::NextLevel()
+bool AMyGameModeBase::NextLevel()
 {
     
-    if (Levels.IsEmpty())
+    if (LevelTrack >= Levels.Num() )
     {
-        if (GEngine)
-            GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Green, TEXT("YOU WIN! ALL LEVELS COMPLETE"));
-        return;
+        return false;
     }
     
-    LevelQueue.Dequeue(CurrentLevel);
+    
     bBattleOver = false;
     //Clear field and move on to next level
-    OnAllUnitsDead();
-    SpawnEnemies(CurrentLevel);
+    // OnAllUnitsDead();
+    //SpawnEnemies(CurrentLevel);
+    
+    FTimerHandle Handle;
+    GetWorld()->GetTimerManager().SetTimer(Handle, [this]()
+    {
+        UGameplayStatics::OpenLevel(GetWorld(), Levels[LevelTrack].NameOfLevel);
+    }, 2.0f, false);
+    return true;
 }
