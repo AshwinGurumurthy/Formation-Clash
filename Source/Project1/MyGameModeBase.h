@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Components/TextBlock.h"
 
 #include "MyGameModeBase.generated.h"
+
 
 /**
  * 
@@ -57,11 +59,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Levels")
 	TArray<FLevelData> Levels;
 	
-	TQueue<FLevelData> LevelQueue;
-	
-	void OnAllUnitsDead();
+	void OnAllUnitsDead(bool bTeam0Alive, UTextBlock* Text);
 	void SpawnEnemies(FLevelData Level);
-	void NextLevel();
+	bool NextLevel();
 	void PopulateLevelMap();
 	
 private:
