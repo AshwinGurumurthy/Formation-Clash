@@ -109,7 +109,7 @@ float UCombatComponent::GetHealthPercent() const
     return (Stats.MaxHealth > 0.f) ? CurrentHealth / Stats.MaxHealth : 0.f;
 }
 
-// --- Effectiveness ---
+// Effectiveness
 
 float UCombatComponent::GetTypeEffectiveness(ECharType Attacker, ECharType Defender)
 {
@@ -156,7 +156,7 @@ float UCombatComponent::GetCombinedEffectiveness(ECharType AtkType, EAttackPatte
     return GetTypeEffectiveness(AtkType, DefType) * GetPatternEffectiveness(AtkPattern, DefPattern);
 }
 
-// --- Damage ---
+// Damage
 
 void UCombatComponent::ApplyDamage(float DamageAmount, AActor* DamageInstigator)
 {
@@ -347,7 +347,7 @@ int32 UCombatComponent::GetFirstLivingCellIndex() const
     return -1;
 }
 
-// --- Range ---
+// Range
 
 bool UCombatComponent::IsInAttackRange(AActor* Target) const
 {
@@ -356,7 +356,7 @@ bool UCombatComponent::IsInAttackRange(AActor* Target) const
     return Distance <= Stats.AttackRange;
 }
 
-// --- Attack ---
+// Attack
 
 bool UCombatComponent::Attack()
 {
@@ -440,7 +440,7 @@ void UCombatComponent::DealDamageToTarget(AActor* Target)
     }
 }
 
-// --- Projectile ---
+// Projectile
 
 void UCombatComponent::FireProjectile()
 {
@@ -478,7 +478,7 @@ void UCombatComponent::FireProjectile()
     StartCooldown();
 }
 
-// --- Cooldown ---
+// Cooldown
 
 void UCombatComponent::StartCooldown()
 {
@@ -494,7 +494,7 @@ void UCombatComponent::ResetAttackCooldown()
     bCanAttack = true;
 }
 
-// --- Targeting ---
+// Targeting
 
 TArray<AActor*> UCombatComponent::GetAllEnemies() const
 {
