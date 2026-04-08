@@ -114,7 +114,7 @@ void AMyGameModeBase::IsBattleOver()
                     else
                     {
                         // Won — next level 
-                        Text->SetText(FText::FromString("LEVEL CLEARED"));
+                        Text->SetText(FText::FromString(FString::Printf(TEXT("LEVEL:%d CLEARED \n MOVING TO NEXT LEVEL..."), LevelTrack)));
                         LevelTrack++;
                         if (!NextLevel())
                         {
@@ -124,7 +124,7 @@ void AMyGameModeBase::IsBattleOver()
                             GetWorld()->GetTimerManager().SetTimer(Handle, [this]()
                             {
                                 AMyGameModeBase::EndPlay(EEndPlayReason::Quit);
-                            }, 10.0f, false);
+                            }, 5.0f, false);
                             
                         }
                         
@@ -187,6 +187,6 @@ bool AMyGameModeBase::NextLevel()
     GetWorld()->GetTimerManager().SetTimer(Handle, [this]()
     {
         UGameplayStatics::OpenLevel(GetWorld(), Levels[LevelTrack].NameOfLevel);
-    }, 10.0f, false);
+    }, 5.0f, false);
     return true;
 }
