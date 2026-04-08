@@ -21,21 +21,21 @@ void UCombatComponent::ApplyAutoStats()
         Stats.AttackDamage = 25.f;
         Stats.AttackRange = 300.f;
         Stats.AttackCooldown = 2.0f;
-        Stats.MovementSpeed = 500.f;
+        Stats.MovementSpeed = 350.f;
         break;
     case ECharType::Ranged:
         Stats.MaxHealth = 80.f;
         Stats.AttackDamage = 25.f;
         Stats.AttackRange = 1500.f;
         Stats.AttackCooldown = 2.0f;
-        Stats.MovementSpeed = 400.f;
+        Stats.MovementSpeed = 250.f;
         break;
     case ECharType::Flying:
         Stats.MaxHealth = 85.f;
         Stats.AttackDamage = 25.f;
         Stats.AttackRange = 800.f;
         Stats.AttackCooldown = 1.5f;
-        Stats.MovementSpeed = 600.f;
+        Stats.MovementSpeed = 400.f;
         break;
     }
 
