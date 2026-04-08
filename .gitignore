@@ -7,3 +7,5 @@ Saved/
 *.suo
 *.xcworkspace
 *.xcodeproj
+/Intermediate
+/Saved
