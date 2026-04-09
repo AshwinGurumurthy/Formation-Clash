@@ -33,10 +33,10 @@ void ABaseProjectile::BeginPlay()
     Super::BeginPlay();
     SetLifeSpan(LifeSpanSeconds);
     
-    if (GEngine)
+    /*if (GEngine)
     {
         GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Magenta, TEXT("Projectile BeginPlay fired!"));
-    }
+    }*/
 
     // Bind overlap
     CollisionComp->OnComponentBeginOverlap.AddDynamic(this, &ABaseProjectile::OnOverlapBegin);

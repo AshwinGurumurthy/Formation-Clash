@@ -15,9 +15,9 @@ void AMyGameModeBase::BeginPlay()
     UWorld* CurrentWorld = GetWorld();
     UGameplayStatics::GetAllActorsOfClass(CurrentWorld, ACharacter::StaticClass(), AllUnits);
 
-    if (GEngine)
+    /*if (GEngine)
         GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan,
-            FString::Printf(TEXT("Found %d units"), AllUnits.Num()));
+            FString::Printf(TEXT("Found %d units"), AllUnits.Num()));*/
 
     for (AActor* Unit : AllUnits)
     {
@@ -43,9 +43,9 @@ void AMyGameModeBase::PopulateLevelMap()
     FString CurrentMap = GetWorld()->GetMapName();
     CurrentMap.RemoveFromStart("UEDPIE_0_"); // strip editor prefix
     
-    if (GEngine)
+    /*if (GEngine)
         GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan,
-            FString::Printf(TEXT("Current map: %s"), *CurrentMap));
+            FString::Printf(TEXT("Current map: %s"), *CurrentMap));*/
     
     for (int32 i = 0; i < Levels.Num(); i++)
     {
@@ -86,10 +86,10 @@ void AMyGameModeBase::IsBattleOver()
             
         }
     }
-    if (GEngine)
+    /*if (GEngine)
         GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Orange,
             FString::Printf(TEXT("Team0 alive: %d | Team1 alive: %d | WidgetClass: %d"),
-                bTeam0Alive, bTeam1Alive, ResultWidgetClass != nullptr));
+                bTeam0Alive, bTeam1Alive, ResultWidgetClass != nullptr));*/
 
 
     if (!bTeam0Alive || !bTeam1Alive)

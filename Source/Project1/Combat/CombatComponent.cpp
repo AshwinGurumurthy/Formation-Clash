@@ -70,10 +70,10 @@ void UCombatComponent::BeginPlay()
         ApplyAutoStats();
     }
 
-    UE_LOG(LogTemp, Warning, TEXT("%s | Type: %d | Pattern: %d | HP: %.0f | Dmg: %.0f | Range: %.0f | CD: %.1f | AutoStats: %d"),
+    /*UE_LOG(LogTemp, Warning, TEXT("%s | Type: %d | Pattern: %d | HP: %.0f | Dmg: %.0f | Range: %.0f | CD: %.1f | AutoStats: %d"),
         *GetOwner()->GetName(),
         (int32)Stats.CharType, (int32)Stats.AttackPattern,
-        Stats.MaxHealth, Stats.AttackDamage, Stats.AttackRange, Stats.AttackCooldown, Stats.bUseAutoStats);
+        Stats.MaxHealth, Stats.AttackDamage, Stats.AttackRange, Stats.AttackCooldown, Stats.bUseAutoStats);*/
 
     CurrentHealth = Stats.MaxHealth;
 
@@ -99,8 +99,8 @@ void UCombatComponent::BeginPlay()
             CellHealths[i] = CellMaxHealth;
         }
 
-        UE_LOG(LogTemp, Warning, TEXT("%s initialized as Team unit: %d cells, %.0f HP each, %.0f damage each"),
-            *GetOwner()->GetName(), Stats.CellCount, CellMaxHealth, CellDamage);
+        /*UE_LOG(LogTemp, Warning, TEXT("%s initialized as Team unit: %d cells, %.0f HP each, %.0f damage each"),
+            *GetOwner()->GetName(), Stats.CellCount, CellMaxHealth, CellDamage);*/
     }
 }
 
@@ -160,9 +160,9 @@ float UCombatComponent::GetCombinedEffectiveness(ECharType AtkType, EAttackPatte
 
 void UCombatComponent::ApplyDamage(float DamageAmount, AActor* DamageInstigator)
 {
-    if (GEngine)
+    /*if (GEngine)
         GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Yellow,
-            FString::Printf(TEXT("ApplyDamage called: %.1f damage"), DamageAmount));
+            FString::Printf(TEXT("ApplyDamage called: %.1f damage"), DamageAmount));*/
 
     if (bIsDead) return;
 
@@ -174,8 +174,8 @@ void UCombatComponent::ApplyDamage(float DamageAmount, AActor* DamageInstigator)
             float Multiplier = GetCombinedEffectiveness(
                 InstigatorCombat->Stats.CharType, InstigatorCombat->Stats.AttackPattern,
                 Stats.CharType, Stats.AttackPattern);
-            UE_LOG(LogTemp, Warning, TEXT("Damage: %s → %s | Base: %.0f | Multiplier: %.2f | Final: %.0f"),
-                *DamageInstigator->GetName(), *GetOwner()->GetName(), DamageAmount, Multiplier, DamageAmount * Multiplier);
+            /*UE_LOG(LogTemp, Warning, TEXT("Damage: %s → %s | Base: %.0f | Multiplier: %.2f | Final: %.0f"),
+                *DamageInstigator->GetName(), *GetOwner()->GetName(), DamageAmount, Multiplier, DamageAmount * Multiplier);*/
             DamageAmount *= Multiplier;
         }
     }
@@ -393,12 +393,12 @@ bool UCombatComponent::Attack()
                 {
                     DealDamageToTarget(Enemy);
                 }
-                if (GEngine)
+                /*if (GEngine)
                 {
                     GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Orange,
                         FString::Printf(TEXT("%s [AoE] hit %d enemies for %.0f each"),
                             *Owner->GetName(), Enemies.Num(), EffectiveDamage));
-                }
+                }*/
             }
             break;
         }

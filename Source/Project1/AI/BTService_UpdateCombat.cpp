@@ -52,12 +52,12 @@ void UBTService_UpdateCombat::TickNode(UBehaviorTreeComponent& OwnerComp, uint8*
         BB->SetValueAsBool(CanAttackKey.SelectedKeyName, Combat->bCanAttack);
 
         float Distance = FVector::Dist(Pawn->GetActorLocation(), Target->GetActorLocation());
-        if (GEngine)
+        /*if (GEngine)
         {
             GEngine->AddOnScreenDebugMessage(-1, 0.3f, FColor::White,
                 FString::Printf(TEXT("%s → %s | Dist: %.0f | Range: %.0f | InRange: %d | CanAttack: %d"),
                     *Pawn->GetName(), *Target->GetName(), Distance, Combat->Stats.AttackRange, bInRange, Combat->bCanAttack));
-        }
+        }*/
     }
     else
     {
