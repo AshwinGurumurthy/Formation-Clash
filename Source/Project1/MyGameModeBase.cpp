@@ -107,7 +107,7 @@ void AMyGameModeBase::IsBattleOver()
                     if (!bTeam0Alive)
                     {
                         // Lost — replay same level 
-                        Text->SetText(FText::FromString("GAME OVER"));
+                        Text->SetText(FText::FromString("GAME OVER, RESTARTING LEVEL."));
                         Widget->AddToViewport();
                         NextLevel();
                     }
@@ -124,7 +124,7 @@ void AMyGameModeBase::IsBattleOver()
                             GetWorld()->GetTimerManager().SetTimer(Handle, [this]()
                             {
                                 AMyGameModeBase::EndPlay(EEndPlayReason::Quit);
-                            }, 5.0f, false);
+                            }, 4.0f, false);
                             
                         }
                         
@@ -187,6 +187,6 @@ bool AMyGameModeBase::NextLevel()
     GetWorld()->GetTimerManager().SetTimer(Handle, [this]()
     {
         UGameplayStatics::OpenLevel(GetWorld(), Levels[LevelTrack].NameOfLevel);
-    }, 5.0f, false);
+    }, 4.0f, false);
     return true;
 }
